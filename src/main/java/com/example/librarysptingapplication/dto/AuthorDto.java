@@ -1,28 +1,23 @@
-package com.example.librarysptingapplication.model;
+package com.example.librarysptingapplication.dto;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
-@Entity
-@Table(name = "authors")
-public class Author {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "authorId")
+public class AuthorDto {
     private Long authorId;
+    @NotBlank(message = "Name is mandatory.")
     private String name;
 
     //Constructors
-    public Author(Long authorId, String name) {
+    public AuthorDto() {
+    }
+
+    public AuthorDto(Long authorId, String name) {
         this.authorId = authorId;
         this.name = name;
     }
 
-    public Author() {
-
-    }
-
-    //Getters and setters
+    //getters and setters
     public Long getAuthorId() {
         return authorId;
     }
@@ -45,10 +40,10 @@ public class Author {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Author author = (Author) o;
+        AuthorDto authorDto = (AuthorDto) o;
 
-        if (!Objects.equals(authorId, author.authorId)) return false;
-        return Objects.equals(name, author.name);
+        if (!Objects.equals(authorId, authorDto.authorId)) return false;
+        return Objects.equals(name, authorDto.name);
     }
 
     @Override
@@ -61,7 +56,7 @@ public class Author {
     //toString
     @Override
     public String toString() {
-        return "Author{" +
+        return "AuthorDto{" +
                 "authorId=" + authorId +
                 ", name='" + name + '\'' +
                 '}';

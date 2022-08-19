@@ -1,34 +1,28 @@
-package com.example.librarysptingapplication.model;
+package com.example.librarysptingapplication.dto;
 
-import javax.persistence.*;
+import com.example.librarysptingapplication.model.Author;
+
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
-@Entity
-@Table(name = "books")
-public class Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "bookId")
+public class BookDto {
     private Long bookId;
+    @NotBlank(message = "Title must not be blank.")
     private String title;
-    @OneToOne
-    @JoinColumn(name = "authorId", referencedColumnName = "authorId")
     private Author author;
     private boolean isBorrowed;
 
     //Constructors
-    public Book(Long bookId, String title, Author author) {
+    public BookDto(Long bookId, String title, boolean isBorrowed) {
         this.bookId = bookId;
         this.title = title;
-        this.author = author;
-        this.isBorrowed = false;
+        this.isBorrowed = isBorrowed;
     }
 
-    public Book() {
-
+    public BookDto() {
     }
 
-    //Getters and setters
+    //Getters ans setters
     public Long getBookId() {
         return bookId;
     }
@@ -61,17 +55,17 @@ public class Book {
         isBorrowed = borrowed;
     }
 
-    //Equals and hashcode
+    //Equals and hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Book book = (Book) o;
+        BookDto bookDto = (BookDto) o;
 
-        if (isBorrowed != book.isBorrowed) return false;
-        if (!Objects.equals(bookId, book.bookId)) return false;
-        return Objects.equals(title, book.title);
+        if (isBorrowed != bookDto.isBorrowed) return false;
+        if (!Objects.equals(bookId, bookDto.bookId)) return false;
+        return Objects.equals(title, bookDto.title);
     }
 
     @Override
@@ -85,10 +79,9 @@ public class Book {
     //toString
     @Override
     public String toString() {
-        return "Book{" +
+        return "BookDto{" +
                 "bookId=" + bookId +
                 ", title='" + title + '\'' +
-                ", author=" + author +
                 ", isBorrowed=" + isBorrowed +
                 '}';
     }

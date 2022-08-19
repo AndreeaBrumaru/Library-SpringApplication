@@ -1,29 +1,29 @@
-package com.example.librarysptingapplication.model;
+package com.example.librarysptingapplication.dto;
 
-import javax.persistence.*;
+import com.example.librarysptingapplication.model.Book;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
-@Entity
-@Table(name= "people")
-public class Person {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "personId")
+public class PersonDto {
+
     private Long personId;
+    @NotBlank(message = "Name is mandatory.")
     private String name;
+    @NotBlank(message = "Phone number is mandatory.")
+    @Size(min = 10, max = 10, message = "The phone number must be 10 characters long.")
     private String phoneNumber;
-    @OneToOne
-    @JoinColumn(name = "bookId", referencedColumnName = "bookId")
     private Book bookBorrowed;
 
     //Constructors
-    public Person(String name, String phoneNumber) {
+    public PersonDto(Long personId, String name, String phoneNumber) {
+        this.personId = personId;
         this.name = name;
         this.phoneNumber = phoneNumber;
     }
 
-    public Person() {
-
+    public PersonDto() {
     }
 
     //Getters and setters
@@ -59,17 +59,17 @@ public class Person {
         this.bookBorrowed = bookBorrowed;
     }
 
-    //Equals and hashCode
+    //Equals and hashcode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Person person = (Person) o;
+        PersonDto personDto = (PersonDto) o;
 
-        if (!Objects.equals(personId, person.personId)) return false;
-        if (!Objects.equals(name, person.name)) return false;
-        return Objects.equals(phoneNumber, person.phoneNumber);
+        if (!Objects.equals(personId, personDto.personId)) return false;
+        if (!Objects.equals(name, personDto.name)) return false;
+        return Objects.equals(phoneNumber, personDto.phoneNumber);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class Person {
     //toString
     @Override
     public String toString() {
-        return "Person{" +
+        return "PersonDto{" +
                 "personId=" + personId +
                 ", name='" + name + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
