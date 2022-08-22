@@ -9,7 +9,7 @@ public interface IPersonService {
 
     PersonDto findById(Long personId);
     List<PersonDto> findAll();
-    void hasBorrowed(Long perosnId, Long bookId);
+    void hasBorrowed(Long personId, Long bookId);
     void hasReturned(Long personId);
     Long count();
     void add(Person newPerson);

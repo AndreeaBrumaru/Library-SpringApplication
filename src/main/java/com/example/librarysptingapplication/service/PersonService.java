@@ -1,6 +1,7 @@
 package com.example.librarysptingapplication.service;
 
 import com.example.librarysptingapplication.dto.PersonDto;
+import com.example.librarysptingapplication.exception.*;
 import com.example.librarysptingapplication.model.Book;
 import com.example.librarysptingapplication.model.Person;
 import com.example.librarysptingapplication.repository.BookRepository;
@@ -39,8 +40,7 @@ public class PersonService implements IPersonService {
         List<Person> list = personRepository.findAll();
         if(list.isEmpty())
         {
-            //TODO Replace exception
-            throw new RuntimeException();
+            throw new NoDataFoundException();
         }
         return list.stream().map(this::convertToDto).collect(Collectors.toList());
     }
@@ -48,10 +48,16 @@ public class PersonService implements IPersonService {
     //Set that a book was borrowed by someone
     @Override
     public void hasBorrowed(Long personId, Long bookId) {
-        //TODO If book is already borrowed, send error
         Person person = findPersonService(personId);
-        //TODO Replace Exception
-        Book book = bookRepository.findById(bookId).orElseThrow(() -> new RuntimeException());
+        Book book = bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new);
+        if(person.getBookBorrowed() != null)
+        {
+            throw new PersonAlreadyBorrowingBookException();
+        }
+        if(book.isBorrowed())
+        {
+            throw new BookAlreadyBorrowedException();
+        }
         person.setBookBorrowed(book);
         book.setBorrowed(true);
         personRepository.save(person);
@@ -61,9 +67,12 @@ public class PersonService implements IPersonService {
     //Set that a book was returned
     @Override
     public void hasReturned(Long personId) {
-        //TODO If person doesn't have book, send error
         Person person = findPersonService(personId);
         Book book = person.getBookBorrowed();
+        if(book == null)
+        {
+            throw new BookNotFoundException();
+        }
         person.setBookBorrowed(null);
         book.setBorrowed(false);
         personRepository.save(person);
@@ -106,7 +115,6 @@ public class PersonService implements IPersonService {
     //Find person, used only by PersonService
     private Person findPersonService(Long personId)
     {
-        //TODO Replace exception
-        return personRepository.findById(personId).orElseThrow(() -> new RuntimeException());
+        return personRepository.findById(personId).orElseThrow(PersonNotFoundException::new);
     }
 }

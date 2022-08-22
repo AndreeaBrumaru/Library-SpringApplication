@@ -2,6 +2,8 @@ package com.example.librarysptingapplication.service;
 
 import com.example.librarysptingapplication.dto.AuthorDto;
 import com.example.librarysptingapplication.dto.BookDto;
+import com.example.librarysptingapplication.exception.AuthorNotFoundException;
+import com.example.librarysptingapplication.exception.NoDataFoundException;
 import com.example.librarysptingapplication.model.Author;
 import com.example.librarysptingapplication.model.Book;
 import com.example.librarysptingapplication.repository.AuthorRepository;
@@ -37,8 +39,7 @@ public class AuthorService implements IAuthorService {
         List<Author> list = authorRepository.findAll();
         if(list.isEmpty())
         {
-            //TODO Replace exception
-            throw new RuntimeException();
+            throw new NoDataFoundException();
         }
         return list.stream().map(this::convertToDto).collect(Collectors.toList());
     }
@@ -89,7 +90,6 @@ public class AuthorService implements IAuthorService {
     //Find author, used only by AuthorService
     private Author findAuthorService(Long authorId)
     {
-        //TODO Replace exception
-        return authorRepository.findById(authorId).orElseThrow(() -> new RuntimeException());
+        return authorRepository.findById(authorId).orElseThrow(AuthorNotFoundException::new);
     }
 }
