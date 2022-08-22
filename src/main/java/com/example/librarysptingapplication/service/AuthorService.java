@@ -5,7 +5,6 @@ import com.example.librarysptingapplication.dto.BookDto;
 import com.example.librarysptingapplication.model.Author;
 import com.example.librarysptingapplication.model.Book;
 import com.example.librarysptingapplication.repository.AuthorRepository;
-import com.example.librarysptingapplication.repository.BookRepository;
 import com.example.librarysptingapplication.service.interfaces.IAuthorService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,7 @@ public class AuthorService implements IAuthorService {
     private final ModelMapper modelMapper;
 
     //Constructor
-    public AuthorService(AuthorRepository authorRepository, BookRepository bookRepository, ModelMapper modelMapper) {
+    public AuthorService(AuthorRepository authorRepository, ModelMapper modelMapper) {
         this.authorRepository = authorRepository;
         this.modelMapper = modelMapper;
     }

@@ -3,6 +3,7 @@ package com.example.librarysptingapplication.service;
 import com.example.librarysptingapplication.dto.PersonDto;
 import com.example.librarysptingapplication.model.Book;
 import com.example.librarysptingapplication.model.Person;
+import com.example.librarysptingapplication.repository.BookRepository;
 import com.example.librarysptingapplication.repository.PersonRepository;
 import com.example.librarysptingapplication.service.interfaces.IPersonService;
 import org.modelmapper.ModelMapper;
@@ -15,11 +16,13 @@ import java.util.stream.Collectors;
 public class PersonService implements IPersonService {
 
     private final PersonRepository personRepository;
+    private final BookRepository bookRepository;
     private final ModelMapper modelMapper;
 
     //Constructor
-    public PersonService(PersonRepository personRepository, ModelMapper modelMapper) {
+    public PersonService(PersonRepository personRepository, BookRepository bookRepository, ModelMapper modelMapper) {
         this.personRepository = personRepository;
+        this.bookRepository = bookRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -44,14 +47,27 @@ public class PersonService implements IPersonService {
 
     //Set that a book was borrowed by someone
     @Override
-    public void hasBorrowed(Person person, Book book) {
-        //TODO Implement borrowing book method
+    public void hasBorrowed(Long personId, Long bookId) {
+        //TODO If book is already borrowed, send error
+        Person person = findPersonService(personId);
+        //TODO Replace Exception
+        Book book = bookRepository.findById(bookId).orElseThrow(() -> new RuntimeException());
+        person.setBookBorrowed(book);
+        book.setBorrowed(true);
+        personRepository.save(person);
+        bookRepository.save(book);
     }
 
     //Set that a book was returned
     @Override
-    public void hasReturned(Person person) {
-        //TODO Implement returning book method
+    public void hasReturned(Long personId) {
+        //TODO If person doesn't have book, send error
+        Person person = findPersonService(personId);
+        Book book = person.getBookBorrowed();
+        person.setBookBorrowed(null);
+        book.setBorrowed(false);
+        personRepository.save(person);
+        bookRepository.save(book);
     }
 
     //Count all people
