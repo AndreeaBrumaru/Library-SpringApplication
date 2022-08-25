@@ -17,6 +17,13 @@ public class PersonDto {
     private Book bookBorrowed;
 
     //Constructors
+    public PersonDto(Long personId, String name, String phoneNumber, Book bookBorrowed) {
+        this.personId = personId;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.bookBorrowed = bookBorrowed;
+    }
+
     public PersonDto(Long personId, String name, String phoneNumber) {
         this.personId = personId;
         this.name = name;

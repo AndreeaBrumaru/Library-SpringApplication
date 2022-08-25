@@ -24,6 +24,19 @@ public class Book {
         this.isBorrowed = false;
     }
 
+    public Book(String title, Author author, boolean isBorrowed) {
+        this.title = title;
+        this.author = author;
+        this.isBorrowed = isBorrowed;
+    }
+
+    public Book(Long bookId, String title, Author author, boolean isBorrowed) {
+        this.bookId = bookId;
+        this.title = title;
+        this.author = author;
+        this.isBorrowed = isBorrowed;
+    }
+
     public Book() {
 
     }

@@ -19,6 +19,19 @@ public class BookDto {
         this.isBorrowed = isBorrowed;
     }
 
+    public BookDto(Long bookId, String title, Author author, boolean isBorrowed) {
+        this.bookId = bookId;
+        this.title = title;
+        this.author = author;
+        this.isBorrowed = isBorrowed;
+    }
+
+    public BookDto(String title, Author author, boolean isBorrowed) {
+        this.title = title;
+        this.author = author;
+        this.isBorrowed = isBorrowed;
+    }
+
     public BookDto() {
     }
 

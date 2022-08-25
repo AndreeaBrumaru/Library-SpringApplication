@@ -22,6 +22,25 @@ public class Person {
         this.phoneNumber = phoneNumber;
     }
 
+    public Person(String name, String phoneNumber, Book bookBorrowed) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.bookBorrowed = bookBorrowed;
+    }
+
+    public Person(Long personId, String name, String phoneNumber) {
+        this.personId = personId;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Person(Long personId, String name, String phoneNumber, Book bookBorrowed) {
+        this.personId = personId;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.bookBorrowed = bookBorrowed;
+    }
+
     public Person() {
 
     }
