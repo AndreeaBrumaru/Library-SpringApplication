@@ -30,22 +30,10 @@ public class BookControllerTest {
     private IBookService bookService;
     @MockBean
     private ModelMapper modelMapper;
-    private Author a1;
-    private Author a2;
-    private BookDto b1;
-    private BookDto b2;
-    private Book b3;
-    private Book b4;
+    private Author a1, a2;
+    private BookDto b1, b2;
+    private Book b3, b4;
     private PersonDto p1;
-
-    //Methods
-    private static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @BeforeEach
     public void init()
@@ -59,7 +47,6 @@ public class BookControllerTest {
         p1 = new PersonDto(7L, "test1", "0711111111", b3);
     }
 
-    //Tests findById
     @Test
     public void findById() throws Exception
     {
@@ -72,7 +59,6 @@ public class BookControllerTest {
                 .andExpect(status().isOk());
     }
 
-    //Tests findAll
     @Test
     public void findAll() throws Exception
     {
@@ -85,7 +71,6 @@ public class BookControllerTest {
                 .andExpect(status().isOk());
     }
 
-    //Tests findByAuthor
     @Test
     public void findByAuthor() throws Exception
     {
@@ -98,7 +83,6 @@ public class BookControllerTest {
                 .andExpect(status().isOk());
     }
 
-    //Tests findWhoBorrowed
     @Test
     public void findBorrowedBy() throws Exception
     {
@@ -111,7 +95,6 @@ public class BookControllerTest {
                 .andExpect(status().isOk());
     }
 
-    //Tests adding books
     @Test
     public void addPassed() throws Exception
     {
@@ -162,5 +145,14 @@ public class BookControllerTest {
         mvc.perform(MockMvcRequestBuilders.delete("/books/" + 5)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+
+    //Methods
+    private static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

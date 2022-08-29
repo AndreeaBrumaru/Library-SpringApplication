@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class PersonService implements IPersonService {
-
     private final PersonRepository personRepository;
     private final BookRepository bookRepository;
     private final ModelMapper modelMapper;
@@ -27,14 +26,13 @@ public class PersonService implements IPersonService {
         this.modelMapper = modelMapper;
     }
 
-    //Find person by id
+    //Methods
     @Override
     public PersonDto findById(Long personId) {
         Person person = findPersonService(personId);
         return convertToDto(person);
     }
 
-    //Find all people
     @Override
     public List<PersonDto> findAll() {
         List<Person> list = personRepository.findAll();
@@ -45,7 +43,6 @@ public class PersonService implements IPersonService {
         return list.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
-    //Set that a book was borrowed by someone
     @Override
     public void hasBorrowed(Long personId, Long bookId) {
         Person person = findPersonService(personId);
@@ -64,7 +61,6 @@ public class PersonService implements IPersonService {
         bookRepository.save(book);
     }
 
-    //Set that a book was returned
     @Override
     public void hasReturned(Long personId) {
         Person person = findPersonService(personId);
@@ -79,19 +75,16 @@ public class PersonService implements IPersonService {
         bookRepository.save(book);
     }
 
-    //Count all people
     @Override
     public Long count() {
         return personRepository.count();
     }
 
-    //Add a new person
     @Override
     public void add(Person newPerson) {
         personRepository.save(newPerson);
     }
 
-    //Update a person
     @Override
     public void update(Long personId, Person updatedInfo) {
         Person person = findPersonService(personId);
@@ -100,7 +93,6 @@ public class PersonService implements IPersonService {
         personRepository.save(person);
     }
 
-    //Delete a person
     @Override
     public void deleteById(Long personId) {
         personRepository.deleteById(personId);

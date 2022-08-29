@@ -31,26 +31,10 @@ public class PersonControllerTest {
     @MockBean
     private ModelMapper modelMapper;
 
-    private Author a1;
-    private Author a2;
-    private Book b1;
-    private Book b3;
-    private Book b4;
-    private Book b2;
-    private PersonDto p1;
-    private PersonDto p2;
-    private Person p3;
-    private Person p4;
-    private Person p5;
-
-    //Methods
-    private static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private Author a1, a2;
+    private Book b1, b3, b4, b2;
+    private PersonDto p1, p2;
+    private Person p3, p4, p5;
 
     @BeforeEach
     public void init() {
@@ -164,6 +148,15 @@ public class PersonControllerTest {
         mvc.perform(MockMvcRequestBuilders.delete("/people/" + p3.getPersonId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+
+    //Methods
+    private static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 

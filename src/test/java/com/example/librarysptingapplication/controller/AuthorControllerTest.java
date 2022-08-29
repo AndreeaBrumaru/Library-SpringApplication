@@ -28,20 +28,8 @@ public class AuthorControllerTest {
     private IAuthorService authorService;
     @MockBean
     private ModelMapper modelMapper;
-    private AuthorDto a1;
-    private AuthorDto a2;
-    private AuthorDto a3;
-    private Author a4;
-    private Author a5;
-
-    //Methods
-    private static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private AuthorDto a1, a2, a3;
+    private Author a4, a5;
 
     @BeforeEach
     public void init()
@@ -53,7 +41,6 @@ public class AuthorControllerTest {
         a5 = new Author("");
     }
 
-    //Tests findById
     @Test
     public void findById() throws Exception
     {
@@ -66,7 +53,6 @@ public class AuthorControllerTest {
                 .andExpect(status().isOk());
     }
 
-    //Tests findAll
     @Test
     public void findAll() throws Exception
     {
@@ -79,7 +65,6 @@ public class AuthorControllerTest {
                 .andExpect(status().isOk());
     }
 
-    //Tests adding books
     @Test
     public void addPassed() throws Exception
     {
@@ -108,7 +93,6 @@ public class AuthorControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    //Tests update
     @Test
     public void putRequest() throws Exception{
         //GIVEN
@@ -122,7 +106,6 @@ public class AuthorControllerTest {
                 .andExpect(status().isOk());
     }
 
-    //Tests delete
     @Test
     public void deleteRequest() throws Exception{
         //GIVEN
@@ -132,5 +115,14 @@ public class AuthorControllerTest {
         mvc.perform(MockMvcRequestBuilders.delete("/authors/" + 1)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+
+    //Methods
+    private static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

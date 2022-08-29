@@ -6,7 +6,6 @@ import com.example.librarysptingapplication.model.Person;
 import java.util.List;
 
 public interface IPersonService {
-
     PersonDto findById(Long personId);
     List<PersonDto> findAll();
     void hasBorrowed(Long personId, Long bookId);

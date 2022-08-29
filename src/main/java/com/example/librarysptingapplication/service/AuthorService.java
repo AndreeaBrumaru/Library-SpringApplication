@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class AuthorService implements IAuthorService {
-
     private final AuthorRepository authorRepository;
     private final ModelMapper modelMapper;
 
@@ -26,14 +25,13 @@ public class AuthorService implements IAuthorService {
         this.modelMapper = modelMapper;
     }
 
-    //Find author by id
+    //Methods
     @Override
     public AuthorDto findById(Long authorId) {
         Author author = findAuthorService(authorId);
         return convertToDto(author);
     }
 
-    //Find all authors
     @Override
     public List<AuthorDto> findAll() {
         List<Author> list = authorRepository.findAll();
@@ -44,7 +42,6 @@ public class AuthorService implements IAuthorService {
         return list.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
-    //Find all books of an author
     @Override
     public List<BookDto> findBooks(Long authorId) {
         Author author = findAuthorService(authorId);
@@ -52,13 +49,11 @@ public class AuthorService implements IAuthorService {
         return books.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
-    //Count all authors
     @Override
     public Long count() {
         return authorRepository.count();
     }
 
-    //Add author
     @Override
     public void add(Author newAuthor) {
         authorRepository.save(newAuthor);

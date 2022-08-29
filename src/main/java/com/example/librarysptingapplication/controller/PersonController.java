@@ -20,21 +20,19 @@ public class PersonController {
         this.modelMapper = modelMapper;
     }
 
-    //Find person by id
+    //Methods
     @GetMapping("/people/{personId}")
     public PersonDto findPerson(@PathVariable Long personId)
 {
     return personService.findById(personId);
 }
 
-    //Find all people
     @GetMapping("/people")
     public Iterable<PersonDto> findAll()
 {
     return personService.findAll();
 }
 
-    //Borrow book method
     @PostMapping("/people/{personId}/{bookId}")
     public ResponseEntity<String> hasBorrowed(@PathVariable Long personId, @PathVariable Long bookId)
     {
@@ -42,7 +40,6 @@ public class PersonController {
         return ResponseEntity.ok("Person has borrowed a book.");
     }
 
-    //Return a book
     @PatchMapping("/people/{personId}")
     public ResponseEntity<String> hasReturned(@PathVariable Long personId)
     {
@@ -50,14 +47,12 @@ public class PersonController {
         return ResponseEntity.ok("Person returned a book.");
     }
 
-    //Count people
     @GetMapping("/people/count")
     public String count()
 {
     return "There are " + personService.count() + " people in the database.";
 }
 
-    //Add a new person
     @PostMapping("/people")
     public ResponseEntity<String> add(@Valid @RequestBody PersonDto personDto)
     {
@@ -66,7 +61,6 @@ public class PersonController {
         return ResponseEntity.ok("New person added.");
     }
 
-    //Update a person
     @PutMapping("/people/{personId}")
     public ResponseEntity<String> update(@PathVariable Long personId, @Valid @RequestBody PersonDto personDto)
     {
@@ -75,7 +69,6 @@ public class PersonController {
         return ResponseEntity.ok("Person updated");
     }
 
-    //Delete a person
     @DeleteMapping("/people/{personId}")
     public ResponseEntity<String> delete(@PathVariable Long personId)
     {

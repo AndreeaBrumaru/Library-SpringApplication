@@ -2,7 +2,6 @@ package com.example.librarysptingapplication.dto;
 
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
-
 public class AuthorDto {
     private Long authorId;
     @NotBlank(message = "Name is mandatory.")

@@ -22,35 +22,31 @@ public class AuthorController {
         this.modelMapper = modelMapper;
     }
 
-    //Find author by id
+    //Methods
     @GetMapping("/authors/{authorId}")
     public AuthorDto findAuthor(@PathVariable Long authorId)
     {
         return authorService.findById(authorId);
     }
 
-    //Find all authors
     @GetMapping("/authors")
     public Iterable<AuthorDto> findAll()
     {
         return authorService.findAll();
     }
 
-    //Find all books of an author
     @GetMapping("/authors/{authorId}/books")
     public Iterable<BookDto> findAllBooks(@PathVariable Long authorId)
     {
         return authorService.findBooks(authorId);
     }
 
-    //Count authors
     @GetMapping("/authors/count")
     public String count()
     {
         return "There are " + authorService.count() + " authors in the database.";
     }
 
-    //Add a new author
     @PostMapping("/authors")
     public ResponseEntity<String> add(@Valid @RequestBody AuthorDto authorDto)
     {
@@ -59,7 +55,6 @@ public class AuthorController {
         return ResponseEntity.ok("New author added.");
     }
 
-    //Update an author
     @PutMapping("/authors/{authorId}")
     public ResponseEntity<String> update(@PathVariable Long authorId, @Valid @RequestBody AuthorDto authorDto)
     {
@@ -68,7 +63,6 @@ public class AuthorController {
         return ResponseEntity.ok("Author updated.");
     }
 
-    //Delete an author
     @DeleteMapping("/authors/{authorId}")
     public ResponseEntity<String> delete(@PathVariable Long authorId)
     {

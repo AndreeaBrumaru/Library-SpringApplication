@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class BookService implements IBookService {
-
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
     private final ModelMapper modelMapper;
@@ -32,14 +31,13 @@ public class BookService implements IBookService {
         this.modelMapper = modelMapper;
     }
 
-    //Find book by id
+    //Methods
     @Override
     public BookDto findById(Long bookId) {
         Book book = findBookService(bookId);
         return convertToDto(book);
     }
 
-    //Find all books
     @Override
     public List<BookDto> findAll() {
         List<Book> list = bookRepository.findAll();
@@ -50,7 +48,6 @@ public class BookService implements IBookService {
         return list.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
-    //Find books by author
     @Override
     public List<BookDto> findByAuthor(Long authorId) {
         Author author = authorRepository.findById(authorId).orElseThrow(AuthorNotFoundException::new);
@@ -62,7 +59,6 @@ public class BookService implements IBookService {
         return list.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
-    //Find books by availability
     @Override
     public List<BookDto> findByAvailability(boolean isBorrowed) {
         List<Book> list = bookRepository.findByBorrowed(isBorrowed);
@@ -84,13 +80,11 @@ public class BookService implements IBookService {
         return convertToDto(person);
     }
 
-    //Count books
     @Override
     public Long count() {
         return bookRepository.count();
     }
 
-    //Add new book
     @Override
     public void add(Long authorId, Book newBook) {
         Author author = authorRepository.findById(authorId).orElseThrow(AuthorNotFoundException::new);
@@ -99,7 +93,6 @@ public class BookService implements IBookService {
         bookRepository.save(newBook);
     }
 
-    //Update a book
     @Override
     public void update(Long bookId, Book updatedInfo) {
         Book book = findBookService(bookId);
@@ -116,7 +109,6 @@ public class BookService implements IBookService {
         bookRepository.save(book);
     }
 
-    //Delete a book
     @Override
     public void deleteById(Long bookId) {
         bookRepository.deleteById(bookId);
